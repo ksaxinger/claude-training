@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('user_list') }}">&larr; Zurück</a>
+
+    <div class="card" style="margin-top: 1rem;">
+        <h1>{{ user.username }}</h1>
+        <p><strong>E-Mail:</strong> {{ user.email }}</p>
+        <p><strong>Rolle:</strong> <span class="badge badge-{{ user.role }}">{{ user.role }}</span></p>
+        <p><strong>Status:</strong>
+            <span class="badge {{ user.active ? 'badge-active' : 'badge-inactive' }}">
+                {{ user.active ? 'Aktiv' : 'Inaktiv' }}
+            </span>
+        </p>
+        <p><strong>Erstellt:</strong> {{ user.createdAt|date('d.m.Y H:i') }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Rolle ändern</h2>
+        <form method="post" action="{{ path('user_role', {id: user.id}) }}" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <select name="role">
+                <option value="user" {{ user.role == 'user' ? 'selected' : '' }}>User</option>
+                <option value="moderator" {{ user.role == 'moderator' ? 'selected' : '' }}>Moderator</option>
+                <option value="admin" {{ user.role == 'admin' ? 'selected' : '' }}>Admin</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </form>
+    </div>
+{% endblock %}

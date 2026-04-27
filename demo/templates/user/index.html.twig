@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Benutzerverwaltung{% endblock %}
+
+{% block body %}
+    <div class="top-bar">
+        <h1>Benutzerverwaltung</h1>
+        <a href="{{ path('user_new') }}" class="btn btn-primary">+ Neuer Benutzer</a>
+    </div>
+
+    <form class="search-bar" method="get" action="{{ path('user_list') }}">
+        <input type="text" name="search" placeholder="Benutzer suchen..." value="{{ search }}">
+        <button type="submit" class="btn btn-primary">Suchen</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Benutzername</th>
+                <th>E-Mail</th>
+                <th>Rolle</th>
+                <th>Status</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    {# BUG: Bei Suche kommen Arrays statt Objekte zurück (Raw SQL) #}
+                    {% if user is iterable %}
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td><span class="badge badge-{{ user.role }}">{{ user.role }}</span></td>
+                        <td>
+                            <span class="badge {{ user.active ? 'badge-active' : 'badge-inactive' }}">
+                                {{ user.active ? 'Aktiv' : 'Inaktiv' }}
+                            </span>
+                        </td>
+                        <td>—</td>
+                    {% else %}
+                        <td>{{ user.id }}</td>
+                        <td><a href="{{ path('user_show', {id: user.id}) }}">{{ user.username }}</a></td>
+                        <td>{{ user.email }}</td>
+                        <td><span class="badge badge-{{ user.role }}">{{ user.role }}</span></td>
+                        <td>
+                            <span class="badge {{ user.active ? 'badge-active' : 'badge-inactive' }}">
+                                {{ user.active ? 'Aktiv' : 'Inaktiv' }}
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <form method="post" action="{{ path('user_toggle', {id: user.id}) }}">
+                                <button class="btn btn-warning btn-sm" type="submit">
+                                    {{ user.active ? 'Deaktivieren' : 'Aktivieren' }}
+                                </button>
+                            </form>
+                            <form method="post" action="{{ path('user_delete', {id: user.id}) }}" onsubmit="return confirm('Wirklich löschen?')">
+                                <button class="btn btn-danger btn-sm" type="submit">Löschen</button>
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Keine Benutzer gefunden.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
