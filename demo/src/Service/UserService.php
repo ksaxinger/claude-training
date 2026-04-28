@@ -30,7 +30,7 @@ class UserService
     }
 
     /**
-     * User suchen – BUG: SQL Injection via Raw Query
+     * User suchen
      */
     public function searchUsers(string $term): array
     {
@@ -41,7 +41,7 @@ class UserService
     }
 
     /**
-     * Neuen User anlegen – BUG: Passwort wird mit MD5 gehasht statt password_hash
+     * Neuen User anlegen
      */
     public function createUser(string $username, string $email, string $password, string $role = 'user'): User
     {
@@ -58,7 +58,7 @@ class UserService
     }
 
     /**
-     * User löschen – BUG: Gibt immer true zurück, auch wenn User nicht existiert
+     * User löschen
      */
     public function deleteUser(int $id): bool
     {
@@ -70,7 +70,7 @@ class UserService
     }
 
     /**
-     * User aktivieren/deaktivieren – BUG: Logik invertiert
+     * User aktivieren/deaktivieren
      */
     public function toggleUserStatus(int $id): bool
     {
@@ -80,7 +80,6 @@ class UserService
             return false;
         }
 
-        // Soll toggeln, setzt aber immer auf active = true
         $user->setActive(true);
         $this->em->flush();
 
@@ -88,7 +87,7 @@ class UserService
     }
 
     /**
-     * Rolle ändern – BUG: Keine Validierung der Rolle
+     * Rolle ändern
      */
     public function changeRole(int $id, string $newRole): bool
     {
