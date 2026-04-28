@@ -11,13 +11,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'app:seed-users', description: 'Testdaten anlegen')]
 class SeedUsersCommand extends Command
 {
-    public function __construct(private UserService $userService)
-    {
+    public function __construct(
+        private UserService $userService,
+        private \Doctrine\ORM\EntityManagerInterface $em,
+    ) {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->em->createQuery('DELETE FROM App\Entity\User')->execute();
+        $output->writeln('Bestehende User gelöscht.');
+
         $users = [
             ['admin', 'admin@webconia.de', 'admin123', 'admin'],
             ['korbi', 'k.saxinger@webconia.de', 'test456', 'user'],

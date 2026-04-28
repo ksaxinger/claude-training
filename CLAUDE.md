@@ -2,20 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Zweck
+## Purpose
 
-Dieses Repository dient ausschließlich als **Schulungs- und Demo-Umgebung** für Claude Code. Korbinian führt regelmäßig AI-Sessions mit Webconia-Mitarbeitern durch, um die Nutzung von Claude Code zu demonstrieren.
+This repository is exclusively a **training and demo environment** for Claude Code. Korbinian runs regular AI sessions with Webconia developers to demonstrate Claude Code usage.
 
-## Was hier passiert
+## What happens here
 
-- **Testprojekte** werden erstellt, um Claude-Funktionen live zu zeigen
-- **Demos** für verschiedene Workflows (Codegenerierung, Refactoring, Debugging, etc.)
-- **Schulungspläne** und Materialien für interne Trainings
-- Inhalte sind temporär und experimentell – kein Produktionscode
+- **Test projects** are created to showcase Claude features live
+- **Demos** for various workflows (code generation, refactoring, debugging, etc.)
+- **Training plans** and materials for internal trainings
+- Content is temporary and experimental – no production code
 
-## Kontext
+## Context
 
-- Teilnehmer sind Entwickler bei Webconia (3 Personen)
-- Tech-Stack im Team: Vue.js, Symfony, PHP, MySQL, Docker, Shopware 6, WordPress
-- Demos sollten praxisnah sein und sich an den realen Projekten des Teams orientieren
-- Sprache: Deutsch
+- Participants are developers at Webconia (3 people)
+- Team tech stack: Vue.js, Symfony, PHP, MySQL, Docker, Shopware 6, WordPress
+- Demos should be practical and relate to the team's real projects
+## Language Override
+
+**IMPORTANT: Always respond in English in this repository.** This overrides the global CLAUDE.md setting of "Deutsch". All responses, explanations, and communications must be in English when working in `claude-training/` or any subdirectory.
